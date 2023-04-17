@@ -29,9 +29,9 @@ h1 {
   max-width: 50vw;
   position: relative;
   padding-block: 5rem;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   margin-inline: auto;
-  /* overflow-x: hidden; */
+  overflow-x: hidden;
 }
 
 .arrows {
@@ -62,10 +62,9 @@ h1 {
 .slider {
   width: 100vw;
   display: flex;
-  gap: 1rem;
-  border: 1px solid green;
+  gap: .2rem;
+  /* border: 1px solid green; */
   padding: 2rem;
-  /* margin-inline: auto; */
   overflow: hidden;
 }
 
@@ -74,7 +73,7 @@ h1 {
   /* margin-inline: auto; */
   display: flex;
   gap: 1rem;
-  border: 1px solid blue;
+  /* border: 1px solid blue; */
   transition: all 300ms ease-in;
 }
 

@@ -4,25 +4,27 @@ const arrowBtns = getAllElements<HTMLButtonElement>('.arrow');
 const sliders = getAllElements('.slide');
 const sliderwrapper = getElement('.slider')
 let currentIndex = 0;
-const parentRect = getElement('.parent').getBoundingClientRect();
 
 function move(activeslide: HTMLElement) {
-  const { left, right, width } = activeslide.getBoundingClientRect();
+  const parentRect = getElement('.parent').getBoundingClientRect();
+  const { left, right } = activeslide.getBoundingClientRect();
   const elInParent = (left > parentRect.left) && (right < parentRect.right);
   if(!elInParent) {
-    if(left < parentRect.left) return  width + (parentRect.left - left);
-    else return width + (right - parentRect.right);
+    if(left < parentRect.left) return (parentRect.left - left);
+    else {
+      return parentRect.right - right
+    }
   }
   else return 0;
 
 }
 function changeSlide(index: number) {
   sliders.forEach(slide => {
-    const moveamount = move(slide);
     if(sliders.indexOf(slide) === index) {
       slide.setAttribute('data-active', 'true');
+      const moveamount = move(slide);
       console.log(moveamount);
-      // sliderwrapper.style.transform = `translateX(-${moveamount}px)`;
+      sliderwrapper.style.transform = `translateX(${moveamount}px)`;
     }
     else {
       slide.setAttribute('data-active', 'false');
@@ -59,6 +61,7 @@ sliders.forEach(slide => {
 sliders.forEach(slide => {
   slide.addEventListener('click', () => {
     !isActiveSlide(slide) && changeSlide(sliders.indexOf(slide));
+    currentIndex = sliders.indexOf(slide)
   })
 })
 
