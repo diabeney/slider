@@ -2,38 +2,53 @@ import { getAllElements, getElement, isActiveSlide} from "./utils/utils";
 
 const arrowBtns = getAllElements<HTMLButtonElement>('.arrow');
 const sliders = getAllElements('.slide');
-const sliderwrapper = getElement('.slider')
 let currentIndex = 0;
 
-function move(activeslide: HTMLElement) {
+let slideCounter = 0;
+
+function betterChangeSlide(index: number) {
+  const sliderwrapper = getElement('.slider-wrapper');
+  const slide = sliders.find((_, i) => i === index)!
+  sliders.filter((_, i) => i !== index).forEach(slide => slide.setAttribute('data-active', 'false'));
   const parentRect = getElement('.parent').getBoundingClientRect();
-  const { left, right } = activeslide.getBoundingClientRect();
-  const elInParent = (left > parentRect.left) && (right < parentRect.right);
+  slide.setAttribute('data-active', 'true');
+  const { left, right } = slide.getBoundingClientRect();
+  const elInParent = ( right < parentRect.right) && (left > parentRect.left);
   if(!elInParent) {
-    if(left < parentRect.left) return (parentRect.left - left);
-    else {
-      return parentRect.right - right
+    if(right > parentRect.right) {
+      let remainingEl = sliders.slice(sliders.indexOf(slide) + 1).length;
+      let multiplier = 0;
+      switch (remainingEl) {
+        case 5:
+          multiplier = 1;
+          break;
+        case 4:
+          multiplier = 2;
+          break;
+        case 3:
+          multiplier = 3;
+          break;
+        case 2:
+          multiplier = 4;
+          break;
+        case 1:
+          multiplier = 5;
+          break;
+        default:
+          multiplier = 1;
+        
+      }
+      let distance = (( parentRect.right - right ) - 16 - (67 * multiplier));
+      console.log(distance);
+      sliderwrapper.style.transform = `translateX(${distance}px)`;
+    } else {
+      let distance = ((parentRect.left - left ) + 16);
+      sliderwrapper.style.transform = `translateX(${distance}px)`;
     }
-  }
-  else return 0;
-
+  }     
 }
-function changeSlide(index: number) {
-  sliders.forEach(slide => {
-    if(sliders.indexOf(slide) === index) {
-      slide.setAttribute('data-active', 'true');
-      const moveamount = move(slide);
-      console.log(moveamount);
-      sliderwrapper.style.transform = `translateX(${moveamount}px)`;
-    }
-    else {
-      slide.setAttribute('data-active', 'false');
-    }
-  })
 
-} 
-changeSlide(0)
-
+betterChangeSlide(0)
 arrowBtns.forEach(btn => {
   btn.addEventListener('click', () => {
     const type = btn.classList[1];
@@ -42,7 +57,7 @@ arrowBtns.forEach(btn => {
     } else {
       currentIndex < sliders.length - 1 && currentIndex++;
     }
-    changeSlide(currentIndex);
+    betterChangeSlide(currentIndex);
   })
 })
 
@@ -60,7 +75,7 @@ sliders.forEach(slide => {
 
 sliders.forEach(slide => {
   slide.addEventListener('click', () => {
-    !isActiveSlide(slide) && changeSlide(sliders.indexOf(slide));
+    !isActiveSlide(slide) && betterChangeSlide(sliders.indexOf(slide));
     currentIndex = sliders.indexOf(slide)
   })
 })

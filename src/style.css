@@ -10,6 +10,8 @@ body {
   font-family: 'Inter';
   width: 100vw;
   overflow-x: hidden;
+  display: grid;
+  place-content: center;
 }
 
 button {
@@ -27,10 +29,10 @@ h1 {
 
 .parent {
   max-width: 50vw;
-  position: relative;
+  height: 100vh;
   padding-block: 5rem;
   /* border: 1px solid red; */
-  margin-inline: auto;
+  /* margin-inline: auto; */
   overflow-x: hidden;
 }
 
@@ -48,33 +50,30 @@ h1 {
   padding: .8rem;
   display: grid;
   place-items: center;
-  background-color: #f05dff;
+  background-color: rgb(114, 116, 235);
   color: #fff;
   border-radius: 50%;
   transition: background-color 300ms cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .arrow:hover {
-  background-color:#d802f0;
+  background-color:rgb(114, 116, 235);
   cursor: pointer;
 }
 
 .slider {
   width: 100vw;
-  display: flex;
-  gap: .2rem;
   /* border: 1px solid green; */
   padding: 2rem;
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .slider-wrapper {
-  width: 70%;
-  /* margin-inline: auto; */
+  width: 70vw;
   display: flex;
-  gap: 1rem;
+  gap: .6rem;
   /* border: 1px solid blue; */
-  transition: all 300ms ease-in;
+  transition: all 600ms ease;
 }
 
 
@@ -82,16 +81,18 @@ h1 {
 
 .slide {
   padding: 1rem;
-  height: 20rem;
+  height: 25rem;
   width: 20rem;
-  background: linear-gradient(45deg, #a41be7, #f05dff);
+  background: linear-gradient(9deg, hsla(239, 100%, 67%, 1) 0%, rgb(199, 203, 255) 100%);
   border-radius: 8px;
-  transition: all 400ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  transition: all 600ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
   overflow-x: hidden;
 }
 
 .slide[data-active = 'true'] {
   flex: 1 0 20rem;
+  /* transform: scale(1.05); */
+  background: linear-gradient(90deg, rgb(114, 116, 235) 0%, rgb(206, 218, 243) 100%);;
 }
 
 .slide[data-active='false'] {
@@ -103,6 +104,7 @@ h1 {
 }
 
 .slide.mouseover {
-  width: 6rem;
+  width: 8rem;
   cursor: pointer;
+  /* transform: scale(1.05) */
 }
