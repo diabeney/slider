@@ -14,25 +14,22 @@ body {
   place-content: center;
 }
 
+h1 {
+      font-size: 1.2rem;
+      font-weight: 400;
+      color: #fff;
+      opacity: 0;
+      transform: translateX(-200%);
+}
+
 button {
   background: none;
   border: none;
 }
-
-h1 {
-  font-size: 1.2rem;
-  color: #fff;
-  font-weight: 400;
-  opacity: 0;
-  transition: opacity 300ms ease-in-out;
-}
-
 .parent {
   max-width: 50vw;
   height: 100vh;
   padding-block: 5rem;
-  /* border: 1px solid red; */
-  /* margin-inline: auto; */
   overflow-x: hidden;
 }
 
@@ -63,48 +60,61 @@ h1 {
 
 .slider {
   width: 100vw;
-  /* border: 1px solid green; */
   padding: 2rem;
-  /* overflow: hidden; */
 }
 
 .slider-wrapper {
   width: 70vw;
   display: flex;
   gap: .6rem;
-  /* border: 1px solid blue; */
-  transition: all 600ms ease;
+  transition: all 800ms ease;
 }
 
-
-
-
 .slide {
-  padding: 1rem;
-  height: 25rem;
+  /* padding: 1rem; */
+  height: 20rem;
   width: 20rem;
-  background: linear-gradient(9deg, hsla(239, 100%, 67%, 1) 0%, rgb(199, 203, 255) 100%);
+  position: relative;
+  background: linear-gradient(9deg, rgb(117, 0, 196) 0%, rgb(201, 124, 252) 100%);
   border-radius: 8px;
-  transition: all 600ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
-  overflow-x: hidden;
+  transition: all 800ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  overflow: hidden;
+}
+
+.slide img {
+  position: absoulte;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  /* filter: grayscale(2); */
 }
 
 .slide[data-active = 'true'] {
-  flex: 1 0 20rem;
-  /* transform: scale(1.05); */
-  background: linear-gradient(90deg, rgb(114, 116, 235) 0%, rgb(206, 218, 243) 100%);;
+  transform: scaleX(1);
+  filter: grayscale(0);
 }
+
 
 .slide[data-active='false'] {
+  filter: grayscale(2);
   width: 5rem;
 }
-
+ 
 .slide[data-active='true'] h1 {
   opacity: 1;
 }
 
+h1.animate {
+  opacity: 1;
+  transform: translateX(0);
+  transition: transform 600ms cubic-bezier(0.250, 0.460, 0.450, 0.940);
+  transition-delay: 200ms;
+}
+
 .slide.mouseover {
-  width: 8rem;
+  transform: scaleX(1.1);
   cursor: pointer;
-  /* transform: scale(1.05) */
 }
