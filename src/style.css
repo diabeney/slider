@@ -54,8 +54,12 @@ button {
 }
 
 .arrow:hover {
-  background-color:rgb(114, 116, 235);
+  background-color:rgb(196, 197, 255);
   cursor: pointer;
+}
+
+.arrow.inactive {
+  background-color: grey;
 }
 
 .slider {
@@ -89,7 +93,6 @@ button {
   height: 100%;
   object-fit: cover;
   object-position: center;
-  /* filter: grayscale(2); */
 }
 
 .slide[data-active = 'true'] {
